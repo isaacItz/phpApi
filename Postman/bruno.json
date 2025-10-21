@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "pachek",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
