@@ -13,13 +13,20 @@ class PawnReactivationRulesController extends Controller
 
     public function store(Request $request)
     {
-        $dto = new PawnReactivationRuleDTO($request->all());
-        return response()->json($this->createRule($dto));
+       //dd($request);
+
+        return response()->json($this->createRule($request));
     }
     public function index(Request $request)
     {
         return response()->json(['message' => 'Funciona', 'data' => $request->all()]);
     }
+
+    public function findByStore(int $storeId)
+{
+    return response()->json($this->findByStoreId($storeId));
+}
+
 
     // Otras funciones: index(), show(), delete(), update(), etc.
 }

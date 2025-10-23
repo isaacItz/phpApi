@@ -10,3 +10,4 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/', [PawnReactivationRulesController::class,'index']);
 Route::post('/store' , [PawnReactivationRulesController::class,'store']);
+Route::get('/findByStore/{storeId}', [PawnReactivationRulesController::class, 'findByStore']);

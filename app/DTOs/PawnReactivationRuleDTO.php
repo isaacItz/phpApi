@@ -1,5 +1,4 @@
 <?php 
-// app/DTOs/PawnReactivationRuleDTO.php
 
 namespace App\DTOs;
 
@@ -26,4 +25,3 @@ class PawnReactivationRuleDTO
         $this->user_response_auth = $data['user_response_auth'];
     }
 }
-?>
