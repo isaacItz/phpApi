@@ -1,0 +1,21 @@
+meta {
+  name: searchByFiedls
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:8000/api/searchByFields?storeId=123&merchandise_type=ostras
+  body: none
+  auth: inherit
+}
+
+params:query {
+  storeId: 123
+  merchandise_type: ostras
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
