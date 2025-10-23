@@ -115,6 +115,53 @@ trait PawnReactivationRulesService
             ];
         }
     }
+    
+    public function searchByMinLoanOrAuction(array $filters)
+    {
+        try {
+          
+            $query = PawnReactivationRule::query();
+
+            // Iteramos sobre cada campo enviado y aplicamos el where dinámico
+            foreach ($filters as $field => $value) {
+                // Solo aplicamos a columnas válidas de la tabla
+                if (
+                    in_array($field, [
+                        'loan_amount_min',
+                        'auction_date_expired_min'
+                    ])
+                ) {
+                    $query->where($field, ">=", $value);
+                    \Log::debug($query->toSql());
+                }
+            }
+            $results = $query->get();
+            
+            if ($results->isEmpty()) {
+                return [
+                    'Data' => [],
+                    'Value' => 0,
+                    'Msg' => 'No se encontraron reglas con los campos especificados.'
+                ];
+            }
+            return [
+                'Data' => $results,
+                'Value' => 0,
+                'Msg' => 'Búsqueda realizada correctamente'
+            ];
+
+
+        } catch (\Exception $e) {
+            \Log::error('Error en Trait::findByMinLoanOrAuction: ' . $e->getMessage());
+
+            return [
+                'Data' => [],
+                'Value' => 0,
+                'Msg' => 'Ocurrió un error al realizar la búsqueda.'
+            ];
+        }
+    
+    }
 
     // Más funciones aquí:
     // - findByStore

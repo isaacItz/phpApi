@@ -70,6 +70,22 @@ class PawnReactivationRulesController extends Controller
         }
     }
 
+    public function findByMinLoanOrAuction(Request $request)
+    {
+        try {
+            $filters = $request->query();
+            $response = $this->searchByMinLoanOrAuction($filters);
+            return response()->json($response, 200);
 
+        } catch (\Exception $e) {
+            \Log::error('Error en PawnReactivationRuleController::findByMinLoanOrAuction'. $e->getMessage());
+
+            return response()->json([
+                'Data' => [],
+                'Value' => 0,
+                'Msg' => 'Ocurrió un error al procesar la solicitud.'
+            ], 500);
+        }
+    }
     // Otras funciones: index(), show(), delete(), update(), etc.
 }

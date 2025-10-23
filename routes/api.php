@@ -12,3 +12,4 @@ Route::get('/', [PawnReactivationRulesController::class,'index']);
 Route::post('/store' , [PawnReactivationRulesController::class,'store']);
 Route::get('/findByStore/{storeId}', [PawnReactivationRulesController::class, 'findByStore']);
 Route::get('/searchByFields', [PawnReactivationRulesController::class, 'searchByFields']);
+Route::get('/findByMinLoanOrAuction', [PawnReactivationRulesController::class, 'findByMinLoanOrAuction']);
