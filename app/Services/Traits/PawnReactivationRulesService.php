@@ -42,7 +42,7 @@ trait PawnReactivationRulesService
 {
     try {
         $rules = PawnReactivationRule::where('store_id', $storeId)->get();
-        \Log::debug("hhola ");
+        Log::debug("hhola ");
         if ($rules->isEmpty()) {
             return [
                 'data' => [],
@@ -58,7 +58,7 @@ trait PawnReactivationRulesService
         ];
 
     } catch (\Exception $e) {
-        \Log::error('Error al buscar reglas por sucursal: ' . $e->getMessage());
+        Log::error('Error al buscar reglas por sucursal: ' . $e->getMessage());
 
         return [
             'data' => [],
