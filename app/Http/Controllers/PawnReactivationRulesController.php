@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\DTOs\PawnReactivationRuleDTO;
-use App\Models\PawnReactivationRule;
 use App\Services\Traits\PawnReactivationRulesService;
 
 class PawnReactivationRulesController extends Controller
@@ -14,8 +12,31 @@ class PawnReactivationRulesController extends Controller
     public function store(Request $request)
     {
         //dd($request);
+        try {
+            $data = $request->only([
+                'store_id',
+                'merchandise_type',
+                'loan_amount_min',
+                'loan_amount_max',
+                'auction_date_expired_min',
+                'auction_date_expired_max',
+                'user_request_auth',
+                'user_response_auth'
+            ]);
+            $response = $this->createRule($data);
 
-        return response()->json($this->createRule($request));
+            return response()->json($response, 200);
+
+        } catch (\Exception $e) {
+            \Log::error('Error en create: ' . $e->getMessage());
+
+            return response()->json([
+                'Data' => [],
+                'Value' => 0,
+                'Msg' => 'Ocurrió un error al crear la regla.'
+            ], 500);
+    }
+
     }
     public function index(Request $request)
     {
@@ -26,7 +47,7 @@ class PawnReactivationRulesController extends Controller
     {
         return response()->json($this->findByStoreId($storeId));
     }
-    
+
     public function searchByFields(Request $request)
     {
         try {

@@ -3,29 +3,26 @@
 namespace App\Services\Traits;
 
 use App\Models\PawnReactivationRule;
-use App\DTOs\PawnReactivationRuleDTO;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 trait PawnReactivationRulesService
 {
-    public function createRule(Request $dto)
+    public function createRule(array $data)
     {
         DB::beginTransaction();
         try {
 
             $rule = new PawnReactivationRule();
 
-            $rule->store_id = $dto->store_id;
-            $rule->merchandise_type = $dto->merchandise_type;
-            $rule->loan_amount_min = $dto->loan_amount_min;
-            $rule->loan_amount_max = $dto->loan_amount_max;
-            $rule->auction_date_expired_min = $dto->auction_date_expired_min;
-            $rule->auction_date_expired_max = $dto->auction_date_expired_max;
-            $rule->user_request_auth = $dto->user_request_auth;
-            $rule->user_response_auth = $dto->user_response_auth;
-
+            $rule->store_id = $data['store_id'];
+            $rule->merchandise_type = $data['merchandise_type'];
+            $rule->loan_amount_min = $data['loan_amount_min'];
+            $rule->loan_amount_max = $data['loan_amount_max'] ?? null;
+            $rule->auction_date_expired_min = $data['auction_date_expired_min'] ?? null;
+            $rule->auction_date_expired_max = $data['auction_date_expired_max'] ?? null;
+            $rule->user_request_auth = $data['user_request_auth'];
+            $rule->user_response_auth = $data['user_response_auth'];
             $rule->save();
 
             DB::commit();
